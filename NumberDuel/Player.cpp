@@ -2,6 +2,7 @@
 #include <iostream> 
 #include <random>
 
+// constructor setting health to 100 via initializer list
 Player::Player() : health(100) {}
 
 
@@ -37,7 +38,17 @@ void Player::takeDamage(int damage) {
     
 }
 
-bool isAlive() { 
+bool Player::isAlive() { 
+    if(health > 0) { 
+        return true;
+    }
+    else { 
+    return false;
+    }
+}
 
-    
+int Player::getHealth() { 
+    return health;
+
+
 }

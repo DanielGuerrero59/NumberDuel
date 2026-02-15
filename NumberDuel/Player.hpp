@@ -25,7 +25,7 @@ void takeDamage(int damage);
 
 bool isAlive(); 
 
-
+int getHealth();
 
 
 private: 
