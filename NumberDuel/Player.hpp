@@ -1,4 +1,5 @@
 #pragma once 
+
 /**
  * @file Player.hpp
  * @author [Daniel Guerrero]
@@ -10,6 +11,25 @@
 
 class Player { 
 
+public: 
+
+Player();
+
+int attackQuick(); 
+
+int attackHeavy(); 
+
+int heal(); 
+
+void takeDamage(int damage);
+
+bool isAlive(); 
+
+
+
+
+private: 
+int health; 
 
 
 
