@@ -21,3 +21,23 @@ int Player::attackHeavy() {
         return 0;
     }
 }
+
+int Player::heal() { 
+    int randomHealthIncrease = rand() % 11 + 10; 
+    health+=randomHealthIncrease; 
+    return  health; 
+} 
+
+
+void Player::takeDamage(int damage) { 
+    health-=damage;
+    if((health) < 0) { 
+        health = 0;
+    }
+    
+}
+
+bool isAlive() { 
+
+    
+}
