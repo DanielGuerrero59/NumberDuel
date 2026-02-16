@@ -5,6 +5,7 @@
 
 
 int main() { 
+    srand(time(0)); // Seeds the randomizer with the current time
 // player
 Player myPlayer; 
 
@@ -32,24 +33,39 @@ std::cin >> choice;
 
 // switch statement that leads to various paths dependent on users input
 switch(choice)  { 
-    case 1: 
-   CPU_Player.takeDamage(myPlayer.attackQuick()); 
-   std::cout << "You did " << myPlayer.attackQuick() << " damage to your opponent!" << std:: endl; 
+    case 1: {
+    int damage = myPlayer.attackQuick();
+    CPU_Player.takeDamage(damage); 
+   std::cout << "You did " << damage << " damage to your opponent!" << std:: endl; 
    break;
+    }
+   case 2: {
+   int damage2 = myPlayer.attackHeavy();
    
-   case 2: 
-   CPU_Player.takeDamage(myPlayer.attackHeavy()); 
-   std::cout << "You did " << myPlayer.attackHeavy() << " damage to your opponent!" << std:: endl; 
+   if(damage2 > 0) { 
+    CPU_Player.takeDamage(damage2); 
+    std::cout << "You did " << damage2 << " damage to your opponent!" << std:: endl; 
+   }
+   else { 
+    std::cout << "Your attack missed!" << std::endl;
+   }
    break;
-
+   }
     case 3: 
-    std::cout << "Your health is now at " << myPlayer.heal() << " HP" << std::endl; 
+    myPlayer.heal();
+    std::cout << "Your health is now at " << myPlayer.getHealth() << " HP" << std::endl; 
     break;
 
     default: 
     std:: cout << "INVALID COMMAND" << std::endl; 
     break;
 }
+// ... after player switch statement ...
+
+if (!CPU_Player.isAlive()) {
+    break; // Exit the while loop immediately if the CPU died
+}
+
 
 // system for CPU TO CHOOSE BETWEEN 1 AND 3, but eliminate heal on its very first move 
 
@@ -59,19 +75,27 @@ if(CPU_turns == 0) {
 }
 
 switch(CPU_Randomizer) { 
-    case 1: 
-   myPlayer.takeDamage(CPU_Player.attackQuick()); 
-   std::cout << "CPU inflicted " << CPU_Player.attackQuick() << " damage to you!" << std:: endl; 
+    case 1: {
+    int CPU_Damage = CPU_Player.attackQuick();
+   myPlayer.takeDamage(CPU_Damage); 
+   std::cout << "CPU inflicted " << CPU_Damage << " damage to you!" << std:: endl; 
    break;
-   
-   case 2: 
-   myPlayer.takeDamage(CPU_Player.attackHeavy()); 
+    }
+   case 2: {
+   int CPU_Damage2 = CPU_Player.attackHeavy();
+   if(CPU_Damage2 > 0) { 
+    myPlayer.takeDamage(CPU_Damage2); 
+    std::cout << "CPU inflicted " << CPU_Damage2 << " damage to you!" << std:: endl; 
+   }
+   else { 
+    std::cout << "CPU'S  attack missed!" << std::endl;
+   }
    
    break;
-
+   }
     case 3: 
     CPU_Player.heal();
-    std::cout << "Your opponents health is now at " << CPU_Player.heal() << " HP" << std::endl; 
+    std::cout << "Your opponents health is now at " << CPU_Player.getHealth() << " HP" << std::endl; 
     break;
 
     default: 
@@ -80,6 +104,12 @@ switch(CPU_Randomizer) {
 }
 CPU_turns++;
 }
+if(myPlayer.isAlive()) { 
+    std::cout << "CONGRATS YOU WON!\n";
+    std:: cout << "THANK YOU FOR PLAYING!" << std::endl;
+}
+else { 
+    std::cout << "Sadly you lost... Want to play again?\n";
+}
 
-std:: cout << "THANK YOU FOR PLAYING!" << std::endl;
 }
